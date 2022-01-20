@@ -1,17 +1,13 @@
 <template>
     <div>
-        <Rate :modelValue="score" @update:modelValue="score = $event" theme="blue"></Rate>
+        <Animate></Animate>
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import Rate from '../components/Rate.vue'
-
-let score = ref(2)
+// import Rate from '../components/Rate.vue'
+import Animate from '../components/Animate.vue'
 
 </script>
 
-<style>
-
-</style>
