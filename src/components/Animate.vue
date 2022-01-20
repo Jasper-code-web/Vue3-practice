@@ -22,12 +22,16 @@ function toggle() {
 
 </script>
 <style>
-/* .box{
-    background-color: red;
-    height: 100px;
-    transition: width 1s linear;
-} */
-.box1 {
+.fade-enter-active,
+.fade-leave-active{
+    transition: opacity 2s linear;
+}
+.fade-enter-from,
+.fade-leave-to{
+    opacity: 0;
+}
+
+/* .box1 {
     width: 50px;
     height: 50px;
     position: relative;
@@ -38,5 +42,12 @@ function toggle() {
     0% {left: 0px}
     50% {left: 200px;}
     100% {left: 0;}
-}
+} */
+
+/* .box{
+    background-color: red;
+    height: 100px;
+    transition: width 1s linear;
+} */
+
 </style>
