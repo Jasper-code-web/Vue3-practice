@@ -47,29 +47,7 @@
 import { computed, reactive, ref } from "vue";
 
 // 垃圾桶
-let animate = reactive({
-  show: false,
-  el: null
-})
-
-function beforeEnter(el) {
-  let dom = animate.el
-  let rect = dom.getBoundingClientRect()
-  let x = window.innerWidth - rect.left - 60
-  let y = rect.to - 10
-  el.style.transform = `translate(-${x}px, ${y}px)`
-}
-function enter(el, done) {
-  document.body.offsetHeight
-  el.style.transform = `translate(0, 0)`
-  el.addEventListener('transitionend', done)
-}
-function afterEnter(el) {
-  animate.el = e.target
-  animate.show = true
-  todos.splice(i, 1)
-}
-
+let animate = reactive({})
 
 
 
