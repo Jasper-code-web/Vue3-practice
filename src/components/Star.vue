@@ -12,7 +12,7 @@
 import { computed, ref } from 'vue'
 
 let props = defineProps({
-    value: Number,
+    modelValue: Number,
     theme: {
         type: String,
         default: 'orange'
@@ -33,20 +33,20 @@ let fontStyle = computed(() => {
     return { color: `${themeObj[props.theme]}`, fontSize: '40px', fontFamily: 'Segoe UI' }
 })
 
-let width = ref(props.value)
+let width = ref(props.modalValue)
 let fontWidth = computed(() => `width: ${width.value}em;`)
 
 function mouseOut() {
-    width.value = props.value
+    width.value = props.modelValue
 }
 
 function mouseIn(num) {
     width.value = num
 }
 
-let emits = defineEmits('update-rate')
+let emits = defineEmits(['update:modelValue'])
 function changeScore(num) {
-    emits('update-rate', num)
+    emits('update:modelValue' ,num)
 }
 
 </script>
@@ -54,7 +54,7 @@ function changeScore(num) {
 .rate{
     position: relative;
     display: inline-block;
-    /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .rate > span.hollow{
     position: absolute;

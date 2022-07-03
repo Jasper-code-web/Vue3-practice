@@ -41,7 +41,7 @@ function addTodo() {
 }
 
 function clear() {
-  todos.value.splice(0)
+  todos.value = todos.value.filter((todo) => !todo.done)
 }
 
 let active = computed(() => {

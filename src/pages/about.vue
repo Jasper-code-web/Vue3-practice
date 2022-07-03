@@ -3,7 +3,7 @@
         关于
     </div>
     <button @click="loading">123</button>
-    <Star :value="score" @update-rate="update" theme="yellow"></Star>
+    <Star v-model="score" theme="yellow"></Star>
 </template>
 
 <script setup>
@@ -19,8 +19,5 @@ function loading() {
 
 
 let score = ref(2)
-function update(num) {
-    score.value = num
-}
 </script>
 
