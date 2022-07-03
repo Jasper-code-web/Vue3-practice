@@ -5,15 +5,10 @@
 
     <!-- 清单别表 -->
     <ul v-if="todos.length">
-      <transition-group name="flip-list" tap="ul">
-        <li v-for="(todo, index) in todos" :key="index">
-          <input type="checkbox" v-model="todo.done" />
-          <span :class="{ done: todo.done }">{{ todo.title }}</span>
-          <span class="remove-btn" @click="removeTodo($event, index)">
-            ❌
-          </span>
-        </li>
-      </transition-group>
+      <li v-for="(todo, index) in todos" :key="index">
+        <input type="checkbox" v-model="todo.done" />
+        <span :class="{ done: todo.done }">{{ todo.title }}</span>
+      </li>
     </ul>
     <div v-else>暂无数据</div>
     
@@ -22,37 +17,13 @@
       全选<input type="checkbox" v-model="allDone" />
       <span>{{ active }}/{{ all }}</span>
     </div>
-
-    <!-- 空状态弹窗 -->
-    <transition name="model">
-        <div class="info-wrap" v-if="showModel">
-            <div class="info">哥，你啥也没输入</div>
-        </div>
-    </transition>
-
-    <!-- 垃圾桶 -->
-    <template>
-      <span class="dustbin">🗑</span>
-      <div class="animate-wrap">
-        <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
-          <div class="animate" v-show="animate.show">
-             📋
-          </div>
-        </transition>
-      </div>
-    </template>
   </div>
 </template>
 <script setup>
 import { computed, reactive, ref } from "vue";
-
-// 垃圾桶
-let animate = reactive({})
-
-
+import userStorage from '../utils/userStorage'
 
 let title = ref("");
-let showModel = ref(false);
 let todos = ref([
   {
     title: "学习",
@@ -60,31 +31,17 @@ let todos = ref([
   },
 ]);
 
-function removeTodo(e, i) {
-  animate.el = e.target 
-  animate.show = true
-  todos.value.splice(i, 1)
-}
-
 function addTodo() {
-  if(!title.value) {
-      showModel.value = true
-      setTimeout(() => {
-          showModel.value = false
-      }, 1500)
-      return
-  }
   todos.value.push({
     title: title.value,
     done: false,
   });
+  userStorage('todos', todos.value)
   title.value = "";
 }
 
 function clear() {
-  todos.value.forEach((item) => {
-    item.done = false;
-  });
+  todos.value.splice(0)
 }
 
 let active = computed(() => {
@@ -97,7 +54,7 @@ let all = computed(() => {
 });
 let allDone = computed({
   get: () => {
-    return active.value === all.value;
+    return active.value === all.value && active.value !== 0;
   },
   set: (value) => {
     todos.value.forEach((todo) => {
@@ -127,18 +84,6 @@ let allDone = computed({
 .flip-list-leave-to{
   opacity: 0;
   transform: translateX(30px);
-}
-
-
-
-.model-enter-from,
-.model-leave-to{
-    opacity: 0;
-    transform: translateY(-60px);
-}
-.model-leave-active,
-.model-enter-active{
-    transition: all 0.3s ease;
 }
 
 .info-wrapper {
