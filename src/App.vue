@@ -7,6 +7,12 @@
     <router-link to="/about">关于页</router-link>
   </div>
   <router-view></router-view>
+  <!-- 组件切换过度 -->
+  <!-- <router-view v-solt="{ Component }">
+    <transition name="route" mode="out-in">
+      <component :is="Component" />
+    </transition>
+  </router-view> -->
 </template>
 
 <style>

@@ -5,18 +5,39 @@
 
     <!-- 清单别表 -->
     <ul v-if="todos.length">
-      <li v-for="(todo, index) in todos" :key="index">
-        <input type="checkbox" v-model="todo.done" />
-        <span :class="{ done: todo.done }">{{ todo.title }}</span>
-      </li>
+      <transition-group name="flip-list" tag="ul">
+        <li v-for="(todo, index) in todos" :key="index">
+          <input type="checkbox" v-model="todo.done" />
+          <span :class="{ done: todo.done }">{{ todo.title }}</span>
+          <span class="remove-btn" @click="removeTodo($event, i)">
+            ❌
+          </span>
+        </li>
+      </transition-group>
     </ul>
     <div v-else>暂无数据</div>
-    
+
     <!-- 全选区域 -->
     <div>
       全选<input type="checkbox" v-model="allDone" />
       <span>{{ active }}/{{ all }}</span>
     </div>
+  </div>
+
+  <transition name="modal">
+    <div class="info" v-if="showModal">内容不能为空！</div>
+  </transition>
+
+
+  <span class="dustbin">
+    🗑
+  </span>
+  <div class="animate-wrap">
+    <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+      <div class="animate" v-show="animate.show">
+        📋
+      </div>
+    </transition>
   </div>
 </template>
 <script setup>
@@ -31,7 +52,16 @@ let todos = ref([
   },
 ]);
 
+let showModal = ref(false)
+//添加li
 function addTodo() {
+  if (!title.value) {
+    showModal.value = true
+    setTimeout(() => {
+      showModal.value = false
+    }, 1500)
+    return
+  }
   todos.value.push({
     title: title.value,
     done: false,
@@ -62,42 +92,103 @@ let allDone = computed({
     });
   },
 });
+
+//dustbin js动画
+let animate = reactive({
+  show: false,
+  el: null
+})
+function beforeEnter(el) {
+  let dom = animate.el
+  let rect = dom.getBoundingClientRect()
+  let x = rect.left
+  let y = rect.top
+  el.style.transform = `translate(-${x}px, ${y}px)`
+}
+function enter(el, done) {
+  document.body.offsetHeight
+  el.style.transform = `translate(-10px, 10px)`
+  el.addEventListener('transitionend', done)
+}
+function afterEnter(el) {
+  animate.show = false
+  el.style.display = 'none'
+}
+function removeTodo(e, i) {
+  animate.el = e.target
+  animate.show = true
+  todos.value.splice(i, 1)
+}
+
 </script>
 
 <style>
-.todo-wrap{
-    position: fixed;
-    left: 50%;
-    top: 200px;
-    transform: translateX(-50%);
-    width: 500px;
+*{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.flip-list-move{
-  transition: transform 0.8s ease;
+.todo-wrap {
+  position: fixed;
+  left: 50%;
+  top: 200px;
+  transform: translateX(-50%);
+  width: 500px;
 }
+
+.info {
+  position: absolute;
+  left: 50%;
+  top: 100px;
+  transform: translateX(-50%);
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  padding: 0 10px;
+  color: #fff;
+  background: #d88986;
+}
+
+/* 弹框过度 */
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+  transform: translate(-50%, -50px);
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: all .3s ease;
+}
+
+/* li列表过度 */
 .flip-list-enter-active,
-.flip-list-leave-active{
+.flip-list-leave-active {
   transition: all 1s ease;
 }
+
 .flip-list-enter-from,
-.flip-list-leave-to{
+.flip-list-leave-to {
   opacity: 0;
   transform: translateX(30px);
 }
 
-.info-wrapper {
-  position: fixed;
-  top: 20px;
-  width: 200px;
-}
-.info {
-  padding: 20px;
-  color: white;
-  background: #d88986;
+.remove-btn{
+  display: inline-block;
 }
 
-h1 {
-  color: red;
+/* dustbin */
+.dustbin{
+  display: inline-block;
+  position: fixed;
+  font-size: 30px;
+  right: 20px;
+  top: 20px;
+}
+.animate-wrap .animate {
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  z-index: 100;
+  transition: all 0.5s linear;
 }
 </style>
