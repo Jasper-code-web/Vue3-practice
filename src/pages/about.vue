@@ -2,16 +2,22 @@
     <div>
         关于
     </div>
+    <Count />
     <!-- <button @click="loading">123</button> -->
-    <Animation />
+    <!-- <Animation /> -->
     <!-- <Star v-model="score" theme="yellow"></Star> -->
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import useFavicon from '../utils/useFavicon';
+// 修改图标
+// import useFavicon from '../utils/useFavicon';
+// 评分
 // import Star from '../components/Star.vue'
-import Animation from '../components/Animation.vue'
+// 动画
+// import Animation from '../components/Animation.vue'
+// vuex数据累加
+import Count from '../components/Count.vue'
 
 //图标切换
 // let {favicon} = useFavicon()
