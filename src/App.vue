@@ -1,18 +1,27 @@
-<!--这里是重点 -->
-<template>
-  <h1>你的评分是 {{ score }}</h1>
-  <Rate :value="score" @update-rate="update"></Rate>
-
-  <!-- <Rate :value="score"></Rate>
-  <Rate :value="3"></Rate>
-  <Rate :value="4" theme="red"></Rate>
-  <Rate :value="1" theme="green"></Rate> -->
-</template>
 <script setup>
-import { ref } from "vue";
-import Rate from "./components/Rate2.vue";
-let score = ref(2.5);
-function update(num) {
-  score.value = num;
-}
 </script>
+
+<template>
+  <div>
+    <router-link to="/">首页</router-link>
+    <router-link to="/about">关于页</router-link>
+  </div>
+  <router-view></router-view>
+  <!-- 组件切换过度 -->
+  <!-- <router-view v-solt="{ Component }">
+    <transition name="route" mode="out-in">
+      <component :is="Component" />
+    </transition>
+  </router-view> -->
+</template>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
