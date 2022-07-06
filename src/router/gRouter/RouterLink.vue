@@ -1,13 +1,14 @@
 <template>
-    <a :href="'#' + props.to">
-        <slot />
-    </a>
+  <a :href="'#' + props.to">
+    <slot />
+  </a>
 </template>
 <script setup>
 let props = defineProps({
-    to: {
-        type: String,
-        required: true
-    }
-})
+  to: {
+    type: String,
+    required: true,
+  },
+});
+console.log(props)
 </script>

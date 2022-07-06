@@ -11,7 +11,7 @@ function createWebHashHistory() {
     }
     return {
         bindEvent,
-        url: window.location.hash
+        url: window.location.hash.slice(1) || '/'
     }
 }
 
@@ -22,7 +22,7 @@ class Router {
         this.current = ref(this.history.url)
 
         this.history.bindEvent(() => {
-            this.current.value = window.location.hash
+            this.current.value = window.location.hash.slice(1)
         })
     }
     install(app) {
