@@ -4,11 +4,12 @@
   </a>
 </template>
 <script setup>
+
 let props = defineProps({
   to: {
     type: String,
-    required: true,
-  },
-});
-console.log(props)
+    required: true
+  }
+})
+
 </script>

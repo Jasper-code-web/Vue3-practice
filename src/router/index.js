@@ -1,13 +1,13 @@
-// import {
-//     createRouter,
-//     createWebHashHistory,
-// } from 'vue-router'
-
-//手写router
 import {
     createRouter,
-    createWebHashHistory
-} from './gRouter/index'
+    createWebHashHistory,
+} from 'vue-router'
+
+//手写router
+// import {
+//     createRouter,
+//     createWebHashHistory
+// } from './gRouter/index'
 
 import Home from '../pages/home.vue'
 import About from '../pages/about.vue'

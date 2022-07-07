@@ -2,15 +2,14 @@
     <component :is="comp"></component>
 </template>
 <script setup>
-import {computed} from 'vue'
 import {useRouter} from './index'
+import { computed } from 'vue';
 
-let router = useRouter()
+const router = useRouter()
 
-const comp = computed(() => {
-    let route = router.routes.find((route) => route.path === router.current.value)
+let comp = computed(() => {
+    const route = router.routes.find((route) => route.path === router.current.value)
+    console.log(route)
     return route ? route.component : null
 })
-console.log(comp)
-
 </script>
