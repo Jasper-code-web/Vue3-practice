@@ -2,7 +2,8 @@
     <div>
         关于
     </div>
-    <Count />
+    <Heading :level="3">Jasper</Heading>
+    <!-- <Count /> -->
     <!-- <button @click="loading">123</button> -->
     <!-- <Animation /> -->
     <!-- <Star v-model="score" theme="yellow"></Star> -->
@@ -17,7 +18,10 @@ import { ref } from 'vue';
 // 动画
 // import Animation from '../components/Animation.vue'
 // vuex数据累加
-import Count from '../components/Count.vue'
+// import Count from '../components/Count.vue'
+
+//jsx
+import Heading from '../components/Heading.jsx';
 
 //图标切换
 // let {favicon} = useFavicon()
