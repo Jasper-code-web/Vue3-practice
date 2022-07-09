@@ -9,13 +9,13 @@ export default defineComponent({
     },
     setup(props, {slots}) {
         //JSX Syntax Sugar
-        // const tag = 'h' + props.level
-        // return () => <tag>{slots.default()}</tag>
+        const tag = 'h' + props.level
+        return () => <tag>{slots.default()}</tag>
         //createVnode
-        return () => h(
-            'h' + props.level,
-            {},
-            slots.default()
-        )
+        // return () => h(
+        //     'h' + props.level,
+        //     {},
+        //     slots.default()
+        // )
     }
 })
