@@ -1,12 +1,13 @@
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
     setup(props) {
         let title = ref('')
-        let todos = ref([{title: '学习Vue3', done: true}, {title: '睡觉', done: false}])
+        let todos = ref([{ title: 'Learn Vue3', done: false }, { title: 'sleep', done: false }])
         function addTodo() {
             todos.value.push({
-                title: title.value
+                title: title.value,
+                done: 'false'
             })
             title.value = ''
         }
@@ -16,8 +17,8 @@ export default defineComponent({
             <ul>
                 {
                     todos.value.length ? todos.value.map(todo => {
-                        return <li>{todo.title}</li>
-                    }): <li>no data</li>
+                        return <li>{todo.value}</li>
+                    }) : <li>no data</li>
                 }
             </ul>
         </div>
