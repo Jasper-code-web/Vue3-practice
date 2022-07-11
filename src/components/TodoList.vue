@@ -9,7 +9,7 @@
         <li v-for="(todo, index) in todos" :key="index">
           <input type="checkbox" v-model="todo.done" />
           <span :class="{ done: todo.done }">{{ todo.title }}</span>
-          <span class="remove-btn" @click="removeTodo($event, i)">
+          <span class="remove-btn" @click="removeTodo($event, index)">
             ❌
           </span>
         </li>
@@ -40,12 +40,18 @@
     </transition>
   </div>
 </template>
-<script setup>
-import { computed, reactive, ref } from "vue";
+<script setup lang="ts">
+import { objectExpression } from "@babel/types";
+import { computed, reactive, Ref, ref } from "vue";
 import userStorage from '../utils/userStorage'
 
-let title = ref("");
-let todos = ref([
+interface Todo{
+  title: string,
+  done: boolean
+}
+
+let title: Ref<string> = ref("");
+let todos: Ref<Todo[]> = ref([
   {
     title: "学习",
     done: false,
@@ -99,7 +105,7 @@ let animate = reactive({
   el: null
 })
 function beforeEnter(el) {
-  let dom = animate.el
+  let dom: any = animate.el
   let rect = dom.getBoundingClientRect()
   let x = rect.left
   let y = rect.top
@@ -114,7 +120,7 @@ function afterEnter(el) {
   animate.show = false
   el.style.display = 'none'
 }
-function removeTodo(e, i) {
+function removeTodo(e: any, i: number) {
   animate.el = e.target
   animate.show = true
   todos.value.splice(i, 1)
