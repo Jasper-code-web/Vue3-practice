@@ -68,7 +68,9 @@ export default defineConfig({
 
 4) 在setup返回的JSX中，使用vModel取代v-model,并且使用单个大括号包裹的形式传入变量title.value,然后使用onClick取代@click。循环清单渲染的时候，使用.map映射取代v-for,使用三元表达式取代v-if。
 
+## Vue+TS
 
+1) vue-router提供了Router和RouterRecordRaw两个路由类型。
 
 
 
