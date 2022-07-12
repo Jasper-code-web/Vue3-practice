@@ -72,6 +72,152 @@ export default defineConfig({
 
 1) vue-router提供了Router和RouterRecordRaw两个路由类型。
 
+## TS
+
+### | 类型联合
+
+```typescript
+//限制多种类型
+let course: number | string = 'vu3'
+course1 = 2
+course2 = false //error
+
+//限制具体的值
+type courseScore = 'good' | 'veryGood' | 'superGood'
+let socre1: courseScore = 'good'
+let score2: courseScore = 'veryGood'
+```
+
+### 定义函数
+
+```typescript
+//使用变量的方式定义函数。参数类型 => 返回值类型。
+let add1: (a: number, b: number) => number = function (x: number, y: number): number => {return x + y}
+
+//type关键字(类型别名)
+let addType1 = type (a: number, b: number) => number
+let add2: addType1 = function(x: number, y: number) {return x + y}
+
+//接口
+interface addType2 = {
+    (a: number, b: number): number
+}
+let add3： addType2 = function(x: number, y: number) {return x + y}
+```
+
+### 环境类型
+
+```typescript
+let w: Window = window
+let ele: HTMLElement = document.createElement('div')
+let allDiv: NodeList = document.querySelectorAll('div')
+
+ele.addEventListener('click', function(e: MouseEvent) {
+    const args: IArguments = arguments
+    w.alert(1)
+    console.log(args)
+}, false)
+```
+
+### Vue数据限定
+
+```typescript
+import {ref, Ref} from 'vue'
+interface Todo{
+    title: string,
+    done: boolean
+}
+let todos: Ref<Todo[]> = ref([{title: 'learn', done: false}])
+```
+
+### 泛型
+
+```typescript
+function identity<T> (arg: T): T {
+    return arg
+}
+//使用1
+let out1 = identity<string>("myString")
+//2 类型推断
+let out2 = identity("myString")
+
+
+//假设T的类型为数组
+function loggingIdentity<T>(arg: T[]): T[] {
+    console.log(T.length)
+    return arg
+}
+```
+
+### keyof
+
+相当于interface的Ocject.keys()。检测key是否是对象的属性
+
+```typescript
+interface VueCourse5{
+    name: string,
+    price: number
+}
+type CourseProps = keyof VueCourse5
+let k: CourseProps = "name"
+let k1: CourseProps = "price"
+```
+
+### extends
+
+继承，泛型约束
+
+```typescript
+//相当于条件语句
+type ExtendsType<T> = T extends boolean ? 'learn' : 'sleep'
+type ExtendsType1 = ExtendsType<boolean> //type ExtendsType1 = 'learn'
+type ExtendsType2 = ExtendsType<string> //type ExtendsType2 = 'sleep'
+```
+
+### in 
+
+遍历
+
+```typescript
+type Courses = 'learn' | 'sleep'
+type CourseObj = {
+    [k in Courses]: number
+}
+//相当于
+type CourseObj = {
+    learn: number,
+    sleep: number
+}
+```
+
+```typescript
+//限制k必须是T的属性之一
+function getProperty<T, k extends keyof T>(o: T, name: k): T[k] {
+    return o[name]
+}
+const coursePrice = {
+    learn: 122,
+    stu: 10
+}
+
+getProperty(coursePrice, 'learn')
+getProperty(coursePrice, 'a')
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
