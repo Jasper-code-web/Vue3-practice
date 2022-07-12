@@ -4,5 +4,7 @@
 </template>
 <script setup>
 import TodoList from '../components/TodoList.vue';
+// jsx组件
+// import TodoList from '../components/Todo'
 
 </script> 
