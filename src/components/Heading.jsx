@@ -7,15 +7,18 @@ export default defineComponent({
             required: true
         }
     },
+    //createVnode
+    // setup(props, {slots}) {
+    //     return () => h(
+    //         'h' + props.level,
+    //         {},
+    //         slots.default()
+    //     )
+    // }
+
+    //JSX Syntax Sugar
     setup(props, {slots}) {
-        //JSX Syntax Sugar
         const tag = 'h' + props.level
         return () => <tag>{slots.default()}</tag>
-        //createVnode
-        // return () => h(
-        //     'h' + props.level,
-        //     {},
-        //     slots.default()
-        // )
     }
 })
