@@ -27,3 +27,66 @@ export default defineComponent({
 })
 ```
 
+# state
+
+访问state
+
+```javascript
+const state = useState()
+state.count ++
+
+//重置state
+state.$reset()
+```
+
+直接映射state的数据
+
+```javascript
+import mapWritableState from 'pinia'
+export default defineComponent({
+    computed: {
+        ...mapWritableState(useStore, ['count'])
+    }
+})
+```
+
+修改state的状态
+
+```javascript
+//直接修改state
+function addCount() {
+    store.count ++
+}
+//通过$patch修改
+function addCount() {
+    store.$patch({
+       	count: store.count ++,
+        name: 'kobe'
+    })
+}
+//通过$patch传入函数
+function addCount() {
+    store.$patch((state) => {
+        state.task.push('speak')
+    })
+}
+```
+
+替换state
+
+```javascript
+store.$state = { counter: 666, name: 'Paimon' }
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
