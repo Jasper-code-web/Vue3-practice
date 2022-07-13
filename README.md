@@ -142,12 +142,69 @@ let out1 = identity<string>("myString")
 let out2 = identity("myString")
 
 
-//假设T的类型
+//假设T的类型为数组
 function loggingIdentity<T>(arg: T[]): T[] {
     console.log(T.length)
     return arg
 }
 ```
+
+### keyof
+
+相当于interface的Ocject.keys()。检测key是否是对象的属性
+
+```typescript
+interface VueCourse5{
+    name: string,
+    price: number
+}
+type CourseProps = keyof VueCourse5
+let k: CourseProps = "name"
+let k1: CourseProps = "price"
+```
+
+### extends
+
+继承，泛型约束
+
+```typescript
+//相当于条件语句
+type ExtendsType<T> = T extends boolean ? 'learn' : 'sleep'
+type ExtendsType1 = ExtendsType<boolean> //type ExtendsType1 = 'learn'
+type ExtendsType2 = ExtendsType<string> //type ExtendsType2 = 'sleep'
+```
+
+### in 
+
+遍历
+
+```typescript
+type Courses = 'learn' | 'sleep'
+type CourseObj = {
+    [k in Courses]: number
+}
+//相当于
+type CourseObj = {
+    learn: number,
+    sleep: number
+}
+```
+
+```typescript
+//限制k必须是T的属性之一
+function getProperty<T, k extends keyof T>(o: T, name: k): T[k] {
+    return o[name]
+}
+const coursePrice = {
+    learn: 122,
+    stu: 10
+}
+
+getProperty(coursePrice, 'learn')
+getProperty(coursePrice, 'a')
+```
+
+
 
 
 
