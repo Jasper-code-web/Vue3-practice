@@ -3,6 +3,7 @@
         关于
     </div>
     <Heading :level="3">Jasper</Heading>
+    <use-pinia></use-pinia>
     <!-- <Count /> -->
     <!-- <button @click="loading">123</button> -->
     <!-- <Animation /> -->
@@ -19,6 +20,8 @@ import { ref } from 'vue';
 // import Animation from '../components/Animation.vue'
 // vuex数据累加
 // import Count from '../components/Count.vue'
+//demo of pinia
+import UsePinia from '@/components/usePinia/index.vue'
 
 //jsx
 import Heading from '../components/Heading.jsx';
