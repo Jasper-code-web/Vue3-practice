@@ -204,6 +204,12 @@ getProperty(coursePrice, 'learn')
 getProperty(coursePrice, 'a')
 ```
 
+### infer
+
+```typescript
+
+```
+
 
 
 
