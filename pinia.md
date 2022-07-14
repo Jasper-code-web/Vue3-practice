@@ -78,7 +78,19 @@ function addCount() {
 store.$state = { counter: 666, name: 'Paimon' }
 ```
 
+监听state的修改状态
 
+```javascript
+store.subscribe((mutation, state) => {
+    //修改state的方式
+    //direct直接赋值
+    //patch object 通过store.$patch传入对象
+    //patch function 通过store.$patch传入函数
+    mutation.type
+    
+    mutation.storeId
+})
+```
 
 
 

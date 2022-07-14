@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div>{{ store.name }}</div>
-        <div>count: {{ doubleCount }}</div>
+        <!-- <div>{{ store.name }}</div>
+        <div>count: {{ doubleCount }}</div> -->
         <div>{{ count }}</div>
         <button @click="addCount">addCount</button>
         <ul>
@@ -9,13 +9,7 @@
         </ul>
     </div>
 </template>
-<!-- <script lang="ts" setup >
-import {useStore} from '@/store/admin/index'
-const store = useStore()
-
-</script> -->
 <script lang="ts">
-import { stat } from 'fs'
 import { mapWritableState } from 'pinia'
 import { defineComponent, computed } from 'vue'
 import { useStore } from '../../store/admin'
@@ -23,13 +17,13 @@ import { useStore } from '../../store/admin'
 export default defineComponent({
     setup() {
         const store = useStore()
-        const doubleCount = computed(() => {
-            return store.count * 2
-        })
+        // const doubleCount = computed(() => {
+        //     return store.count * 2
+        // })
         //直接操作store修改
-        // function addCount() {
-        //     store.count ++
-        // }
+        function addCount() {
+            store.count ++
+        }
         // function addCount() {
         //     store.$patch({
         //         count: store.count + 1,
@@ -37,15 +31,22 @@ export default defineComponent({
         //     })
         // }
         //传入函数
-        function addCount() {
-            store.$patch((state) => {
-                state.task.push('speak')
-            })
-        }
+        // function addCount() {
+        //     store.$patch((state) => {
+        //         state.task.push('speak')
+        //     })
+        // }
+        store.$subscribe((mutation, state) => {
+            mutation.type
+            console.log(mutation.type)
+            mutation.storeId
+            console.log('mutation.storeId',mutation.storeId)
+            console.log(state)
+        })
 
         return {
             store,
-            doubleCount,
+            // doubleCount,
             addCount
         }
     },
