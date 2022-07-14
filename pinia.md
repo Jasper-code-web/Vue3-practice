@@ -142,11 +142,40 @@ export default useStore = defineStore('main', {
 使用
 
 ```javascript
-可以直接通过store访问getter
+//可以直接通过store访问getter
 <div>{{store.doublePlusOne}}</div>
 ```
 
+getter返回函数
 
+```javascript
+expor default useStore = defineStore('main', {
+	state: () => ({
+		users: [
+            {
+                name: 'jasper',
+                id: 1
+            },
+            {
+                name: 'name',
+                id: 2
+            }
+        ]
+    }),
+    getter: {
+        getUserId: (state) => {
+            return (userId: number) => state.users.find((user) => user.id === userId)?.name
+        }
+    }
+})
+
+//使用
+return {
+    getUserId: adminStore.getUserId
+}
+```
+
+在这个过程中，getter不在缓存，只是一个函数。但是函数本身可以存数据。
 
 
 
