@@ -29,6 +29,24 @@ export default defineComponent({
 
 # state
 
+定义state
+
+```javascript
+expor default useStore = defineStore('main', {
+	state: () => {
+        return {
+            count: 0
+        }
+    }
+    //或者
+    state: () => ({
+        count: 0
+    })
+})
+```
+
+
+
 访问state
 
 ```javascript
@@ -78,7 +96,86 @@ function addCount() {
 store.$state = { counter: 666, name: 'Paimon' }
 ```
 
+监听state的修改状态
 
+```javascript
+store.subscribe((mutation, state) => {
+    //修改state的方式
+    //direct直接赋值
+    //patch object 通过store.$patch传入对象
+    //patch function 通过store.$patch传入函数
+    mutation.type
+    //store的id
+    mutation.storeId
+    //传给mutation.payload()的参数（仅限于mutation.type === 'patch function'）
+    mutation.payload
+})
+```
+
+当store在setup()中，当组件被卸载时，store也会被清除。如果想在组件被卸载后保留store，将{detached: true}作为第二个参数传给state substrible
+
+```javascript
+store.subStrible((mutation, state) => {}, {detached: true})
+```
+
+# Getters
+
+相当于pinia的计算属性
+
+```javascript
+export default useStore = defineStore('main', {
+    state: () => ({
+        count: 0
+    }),
+    getter: {
+        doubleCount: (state) => {
+            return state.count
+        }
+        //在定义常规函数时，可以直接通过this访问state。但是需要明确定义返回类型。
+        doublePlusOne(): number{
+    		return this.store.count * 2 + 1
+		}
+    }
+})
+```
+
+使用
+
+```javascript
+//可以直接通过store访问getter
+<div>{{store.doublePlusOne}}</div>
+```
+
+getter返回函数
+
+```javascript
+expor default useStore = defineStore('main', {
+	state: () => ({
+		users: [
+            {
+                name: 'jasper',
+                id: 1
+            },
+            {
+                name: 'name',
+                id: 2
+            }
+        ]
+    }),
+    getter: {
+        getUserId: (state) => {
+            return (userId: number) => state.users.find((user) => user.id === userId)?.name
+        }
+    }
+})
+
+//使用
+return {
+    getUserId: adminStore.getUserId
+}
+```
+
+在这个过程中，getter不在缓存，只是一个函数。但是函数本身可以存数据。
 
 
 
