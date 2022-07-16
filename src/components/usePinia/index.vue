@@ -4,18 +4,18 @@
         <div>count: {{ doubleCount }}</div> -->
         <div>{{ count }}</div>
         <button @click="addCount">addCount</button>
-        <div>{{adminStore.doublePlusOne}}</div>
-        <div>{{adminStore.dDouble}}</div>
+        <!-- <div>{{adminStore.doublePlusOne}}</div>
+        <div>{{adminStore.dDouble}}</div> -->
         <div>User2: {{getUserId(2)}}</div>
         <ul>
             <li v-for="task in adminStore.task" :key="task">{{ task }}</li>
         </ul>
+        <button @click="handleIncrement">incrementAc</button>
     </div>
 </template>
 <script lang="ts">
 import { mapWritableState } from 'pinia'
 import { defineComponent, computed } from 'vue'
-import store from '../../store'
 import { useStore } from '../../store/admin/index'
 
 export default defineComponent({
@@ -51,13 +51,20 @@ export default defineComponent({
         })
 
         //getter
+        console.log(adminStore.otherMusicCount)
+
+        //Actions
+        function handleIncrement() {
+            adminStore.increment()
+        }
 
 
         return {
             adminStore,
             // doubleCount,
             addCount,
-            getUserId: adminStore.getUserId
+            getUserId: adminStore.getUserId,
+            handleIncrement
         }
     },
     computed: {
