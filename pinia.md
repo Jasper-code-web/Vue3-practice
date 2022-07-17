@@ -131,7 +131,7 @@ export default useStore = defineStore('main', {
         doubleCount: (state) => {
             return state.count
         }
-        //在定义常规函数时，可以直接通过this访问state。但是需要明确定义返回类型。
+        //在定义常规函数时，可以直接通过this访问state，也可以访问其它getter。但是需要明确定义返回类型。
         doublePlusOne(): number{
     		return this.store.count * 2 + 1
 		}
@@ -176,6 +176,31 @@ return {
 ```
 
 在这个过程中，getter不在缓存，只是一个函数。但是函数本身可以存数据。
+
+访问其它store的getter
+
+```javascript
+import {otherStore} from './other'
+import {defineStore} from 'pinia'
+
+export const useStore = defineStore('main', {
+    state: () => {
+        return{
+            ...
+        }
+    },
+    getter: {
+        getOtherMusic: (state) => {
+            const otherData = otherStore()
+            retrun otherData.music
+        }
+    }
+})
+```
+
+# Actions
+
+
 
 
 
