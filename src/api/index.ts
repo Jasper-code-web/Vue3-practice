@@ -2,7 +2,7 @@ import axios from "axios";
 import {getToken} from '@/utils/auth'
 import { message } from 'ant-design-vue';
 import { userStore } from "@/store/user";
-
+console.log('process',process)
 const service = axios.create({
     // baseURL: process.env.VUE_APP_BASE_URL,
     timeout: 5000

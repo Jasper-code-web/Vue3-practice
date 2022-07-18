@@ -2,7 +2,7 @@
     <div>
         登录
     </div>
-    <Login></Login>
+    <button @click="login">登录</button>
     <!-- <Heading :level="3">Jasper</Heading> -->
     <!-- <use-pinia></use-pinia> -->
     <!-- <Count /> -->
