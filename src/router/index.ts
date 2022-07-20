@@ -8,6 +8,8 @@ import { createRouter, createWebHashHistory, Router, RouteRecordRaw } from "vue-
 
 import Home from "../pages/home.vue";
 import About from "../pages/about.vue";
+import Login from "@/pages/Login/index.vue";
+import { getToken } from "@/utils/auth";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -20,11 +22,27 @@ const routes: Array<RouteRecordRaw> = [
     name: "About",
     component: About,
   },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
+  },
 ];
 
 const router: Router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
+
+router.beforeEach((to, from, next) => {
+  const token = getToken()
+  const {fullPath} = to
+  if(fullPath === '/login') next()
+  if(!token) {
+    next('/login')
+  }
+  next()
+})
+
 
 export default router;

@@ -1,7 +1,8 @@
 import { ref, watchEffect } from "vue";
 
 function userStorage(name: string, value = []) {
-    let data = ref(JSON.parse(localStorage.getItem(name) || '[]'));
+    const data = ref(JSON.parse(localStorage.getItem(name) || '[]'));
+    if(value) data.value = value
     watchEffect(() => {
         localStorage.setItem(name, JSON.stringify(data.value))
     })
