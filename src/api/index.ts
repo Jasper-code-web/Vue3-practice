@@ -1,8 +1,7 @@
 import axios from "axios";
-import {getToken} from '@/utils/auth'
+import {getToken} from '@/utils/token'
 import { message } from 'ant-design-vue';
-import { userStore } from "@/store/user";
-
+console.log('process',process)
 const service = axios.create({
     // baseURL: process.env.VUE_APP_BASE_URL,
     timeout: 5000
@@ -10,9 +9,10 @@ const service = axios.create({
 
 service.interceptors.request.use(
     config => {
+        console.log(config)
         if(config && config.headers) {
-            const userInfo = userStore()
-            config.headers['Autherication'] = userInfo.token
+            const token = getToken()
+            config.headers['Autherication'] = token
             return config
         }
     },

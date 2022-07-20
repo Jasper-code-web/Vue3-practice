@@ -1,8 +1,7 @@
 <template>
     <div>
-        登录
+        关于页
     </div>
-    <Login></Login>
     <!-- <Heading :level="3">Jasper</Heading> -->
     <!-- <use-pinia></use-pinia> -->
     <!-- <Count /> -->
@@ -28,7 +27,7 @@ import { ref } from 'vue';
 // import Heading from '../components/Heading.jsx';
 
 //login
-import Login from '@/components/login/index.vue';
+// import Login from '@/components/login/index.vue';
 
 //图标切换
 // let {favicon} = useFavicon()

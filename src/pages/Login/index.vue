@@ -38,15 +38,14 @@ interface resData {
 export default defineComponent({
     setup() {
         const formState = reactive<FormState>({
-            username: '',
-            password: '',
+            username: 'Jasper',
+            password: '123456',
             remember: true,
         });
         //登录相关数据
         const loading = ref(false)
         //表单验证成功
         const onFinish = async (values: any) => {
-            console.log('Success:', values);
             const loginForm: FormState = reactive({
                 username: formState.username,
                 password: formState.password
