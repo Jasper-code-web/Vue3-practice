@@ -52,9 +52,9 @@ export default defineComponent({
             })
             if (values) {
                 loading.value = true
-                const { code }: resData = await login(loginForm)
+                const resData = await login(loginForm)
                 loading.value = false
-                if (code === 0) {
+                if (resData && resData.code === 0) {
                     router.replace('/')
                 } else {
                     message.error('登录失败，请重新登录')

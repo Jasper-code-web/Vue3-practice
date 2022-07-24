@@ -4,13 +4,14 @@ import vue from '@vitejs/plugin-vue'
 import { viteMockServe } from 'vite-plugin-mock'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 
-// https://vitejs.dev/config/
+
 export default ({ command }: ConfigEnv): UserConfigExport => {
   return {
-    plugins: [vue(), vueJsx(),viteMockServe({
+    plugins: [vue(), vueJsx(), viteMockServe({
+      // default
       mockPath: 'mock',
       localEnabled: command === 'serve',
-    }),],
+    })],
     define: {
       'process.env': {
 
@@ -28,3 +29,4 @@ export default ({ command }: ConfigEnv): UserConfigExport => {
     }
   }
 }
+
